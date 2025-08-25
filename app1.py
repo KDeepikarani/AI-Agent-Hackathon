@@ -26,10 +26,15 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# --- Load environment variables ---
-load_dotenv()
-HF_API_TOKEN = os.getenv("HF_API_TOKEN")
-YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
+# --- Load secrets for API keys ---
+if "HF_API_TOKEN" in st.secrets:
+    HF_API_TOKEN = st.secrets["HF_API_TOKEN"]
+    YOUTUBE_API_KEY = st.secrets["YOUTUBE_API_KEY"]
+else:
+    # fallback for local dev with .env
+    load_dotenv()
+    HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+    YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 # --- MongoDB Setup ---
 try:
@@ -1216,4 +1221,5 @@ st.markdown("""
     <p>Powered by Advanced AI • Real-time Analytics • Predictive Intelligence</p>
     <p><em>Hackathon Edition - Revolutionizing Content Creator Success</em></p>
 </div>
+
 """, unsafe_allow_html=True)
