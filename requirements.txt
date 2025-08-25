@@ -1,0 +1,16 @@
+streamlit
+pandas
+requests
+pymongo
+python-dotenv
+fpdf
+Pillow
+altair
+google-api-python-client
+numpy
+textblob
+wordcloud
+matplotlib
+seaborn
+plotly
+statsmodels
