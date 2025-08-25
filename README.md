@@ -30,3 +30,6 @@ By combining **real-time analytics, sentiment analysis, trend prediction, and AI
 ---
 
 ## 📂 Project Structure
+AI-Agent-Hackathon/
+app1.py
+.env
