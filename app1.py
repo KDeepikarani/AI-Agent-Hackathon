@@ -38,19 +38,21 @@ else:
 
 # --- MongoDB Setup ---
 try:
-    client = pymongo.MongoClient("mongodb://localhost:27017/", serverSelectionTimeoutMS=5000)
-    client.server_info()
-    db = client["youtube_app"]
-    history_collection = db["search_history"]
-    analytics_collection = db["channel_analytics"]
-    predictions_collection = db["trend_predictions"]
-except:
+    # First, try to load from Streamlit Cloud secrets
+    if "MONGO_URI" in st.secrets:
+        MONGO_URI = st.secrets["MONGO_URI"]
+    else:
+        # Fallback: local .env
+        MONGO_URI = os.getenv("MONGO_URI")
+
+    client = pymongo.MongoClient(MONGO_URI, serverSelectionTimeoutMS=2000)
+    client.server_info()   # Force connection test
+    db = client["aihackathon"]   # your DB name
+    st.success("✅ Connected to MongoDB Atlas")
+except Exception as e:
     st.warning("⚠ MongoDB not available. Using local storage.")
-    client = None
-    db = None
-    history_collection = None
-    analytics_collection = None
-    predictions_collection = None
+    db = None   # fallback → your JSON-based storage will be used
+
 
 # --- Enhanced Configuration ---
 st.set_page_config(
@@ -1223,3 +1225,4 @@ st.markdown("""
 </div>
 
 """, unsafe_allow_html=True)
+
